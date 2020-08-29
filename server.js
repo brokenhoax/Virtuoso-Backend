@@ -7,9 +7,10 @@ const PORT = 3000
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
 app.use(cors());
 app.use(routes);
 
-mongoose.connect("mongodb://localhost/project", {userNewUrlParser: true});
+mongoose.connect("mongodb://localhost/projectdb", {useNewUrlParser: true});
 
 app.listen(PORT, () => {console.log(`App is listening on Port: ${PORT}`)});
