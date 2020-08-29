@@ -1,6 +1,6 @@
 {
-  "name": "Virtuoso-Backend",
-  "version": "1.0.0",
+  "name": "virtuoso-backend",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "jest",
-    "seed": "node seeders/seed.js"
+    "seed": "node seeders/seed.js",
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",
