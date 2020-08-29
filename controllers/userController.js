@@ -1,4 +1,5 @@
-const userModel = require("../models/userModel");
+const db = require("../models");
+
 const userController = {
 
 };
