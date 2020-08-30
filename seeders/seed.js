@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 // const User = require("../models/userModel.js");
 // const Webinar = require("../models/webinarModel.js");
-const db = require("../models");
+const { User, Webinar } = require("../models");
 
 mongoose.connect("mongodb://localhost/projectdb", {
   useNewUrlParser: true,
@@ -9,7 +9,7 @@ mongoose.connect("mongodb://localhost/projectdb", {
   useUnifiedTopology: true
 });
 
-const users = ["Bill", "Phillip", "Edward", "Pablo", "Gil", "Francesca", "Edith", "Sasha"];
+const users = ["Bill",  "Edward", "Pablo", "Gil", "Francesca", "Edith", "Sasha"];
 let UserSeed = [];
 
 const role = () => {
@@ -56,27 +56,65 @@ WebinarSeed = webinars.map(webinar => ({
     finance: true,
     marketing: false,
     engineering: false
-  }
+  },
+  producer: {}
 })
 );
 
 
-db.User.deleteMany({})
-  .then(() => {
-    return db.Webinar.deleteMany({})
-  })
-  .then(() => {
-    return db.User.insertMany(UserSeed);
-  })
-  .then(() => {
-    return db.Webinar.insertMany(WebinarSeed);
-  })
-  .then(
-    data => {
-      console.log(`${data.length} records inserted!`);
-      process.exit(0);
-    })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+const UserSeeder = async () => {
+  
+  for (userDoc of UserSeed) {
+    let newUser = new User(userDoc);
+    await newUser.save();
+  }
+  // const a = await User.find();
+  // console.log('user: ', a);
+}
+
+const WebinarSeeder = async () => {
+  
+  for (webinarDoc of WebinarSeed) {
+    let newWebinar = await new Webinar(webinarDoc);
+    // let creatorCase = await User.findOne({username: "Bill"});
+    // console.log(newWebinar);
+    // console.log(newWebinar.creator);
+
+    // await newWebinar.creator.push(creatorCase);
+    await newWebinar.save();
+
+    for (user of UserSeed) {
+      let userUp = await User.findOne({ username: user.username });
+      console.log(userUp)
+      userUp.registered.push(newWebinar);
+      userUp.save();
+      
+    }
+    
+  }
+
+}
+
+User.deleteMany({}).then(() => UserSeeder());
+Webinar.deleteMany({}).then(() => WebinarSeeder());
+
+
+// User.deleteMany({})
+//   .then(() => {
+//     return Webinar.deleteMany({})
+//   })
+//   .then(() => {
+//     return User.insertMany(UserSeed);
+//   })
+//   .then(() => {
+//     return Webinar.insertMany(WebinarSeed);
+//   })
+//   .then(
+//     data => {
+//       console.log(`${data.length} records inserted!`);
+//       process.exit(0);
+//     })
+//   .catch(err => {
+//     console.error(err);
+//     process.exit(1);
+//   });
