@@ -78,12 +78,8 @@ const WebinarSeeder = async () => {
     await newWebinar.save();
 
     let creatorCase = await User.findOne({username: "Bill"});
-    let foundWebinar = await Webinar.findOne({title: webinarDoc.title});
-    console.log(foundWebinar);
-    console.log(foundWebinar.created_by);
-    await foundWebinar.created_by.push(creatorCase);
-    await foundWebinar.save()
-
+    await Webinar.findOneAndUpdate({title: webinarDoc.title},{created_by: creatorCase});
+  
     for (user of UserSeed) {
       let userUp = await User.findOne({ username: user.username });
       console.log(userUp)

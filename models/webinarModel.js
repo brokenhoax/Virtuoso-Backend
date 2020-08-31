@@ -32,10 +32,10 @@ const WebinarSchema = new Schema({
         marketing: Boolean,
         engineering: Boolean
     },
-    created_by: [{
+    created_by: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
-    }]
+    }
 });
 
 const Webinar = mongoose.model("Webinar", WebinarSchema);
