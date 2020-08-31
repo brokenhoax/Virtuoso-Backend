@@ -56,8 +56,7 @@ WebinarSeed = webinars.map(webinar => ({
     finance: true,
     marketing: false,
     engineering: false
-  },
-  producer: {}
+  }
 })
 );
 
@@ -76,12 +75,14 @@ const WebinarSeeder = async () => {
   
   for (webinarDoc of WebinarSeed) {
     let newWebinar = await new Webinar(webinarDoc);
-    // let creatorCase = await User.findOne({username: "Bill"});
-    // console.log(newWebinar);
-    // console.log(newWebinar.creator);
-
-    // await newWebinar.creator.push(creatorCase);
     await newWebinar.save();
+
+    let creatorCase = await User.findOne({username: "Bill"});
+    let foundWebinar = await Webinar.findOne({title: webinarDoc.title});
+    console.log(foundWebinar);
+    console.log(foundWebinar.created_by);
+    await foundWebinar.created_by.push(creatorCase);
+    await foundWebinar.save()
 
     for (user of UserSeed) {
       let userUp = await User.findOne({ username: user.username });
