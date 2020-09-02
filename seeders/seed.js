@@ -25,8 +25,7 @@ UserSeed = users.map(user => ({
   username: user,
   password: "password",
   role: role()
-})
-);
+}));
 
 const webinars = ["Data and you!", "Best Financing Practices", "Putting the We in Web dev!", "How to get a raise in 10 days!", "What to do when you become the boss", "Uh Oh, my database has been wiped!"]
 let WebinarSeed = [];
@@ -57,9 +56,7 @@ WebinarSeed = webinars.map(webinar => ({
     marketing: false,
     engineering: false
   }
-})
-);
-
+}));
 
 db.User.deleteMany({})
   .then(() => {
