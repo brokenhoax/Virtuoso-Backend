@@ -32,8 +32,8 @@ const WebinarSchema = new Schema({
         marketing: Boolean,
         engineering: Boolean
     },
-    creator: {
-        type: Schema.Types.ObjectId,
+    created_by: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
 });

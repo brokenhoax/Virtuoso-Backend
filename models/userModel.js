@@ -5,12 +5,12 @@ const UserSchema = new Schema({
     _userid: Schema.Types.ObjectId,
     username: {
         type: String,
-        required: true,
+        required: "Username is a required field",
         trim: true
     },
     password: {
         type: String,
-        required: true,
+        required: "Password is a required field",
         trim:true
     },
     role: {type: String, required: true, enum: ["Virtuoso", "Prodigy"]},
