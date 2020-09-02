@@ -58,7 +58,6 @@ WebinarSeed = webinars.map(webinar => ({
   }
 }));
 
-<<<<<<< HEAD
 const UserSeeder = async () => {
   
   for (userDoc of UserSeed) {
@@ -113,24 +112,3 @@ Webinar.deleteMany({}).then(() => WebinarSeeder());
 //     console.error(err);
 //     process.exit(1);
 //   });
-=======
-db.User.deleteMany({})
-  .then(() => {
-    return db.Webinar.deleteMany({})
-  })
-  .then(() => {
-    return db.User.insertMany(UserSeed);
-  })
-  .then(() => {
-    return db.Webinar.insertMany(WebinarSeed);
-  })
-  .then(
-    data => {
-      console.log(`${data.length} records inserted!`);
-      process.exit(0);
-    })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
->>>>>>> master

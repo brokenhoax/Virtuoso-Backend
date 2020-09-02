@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    _userid: Schema.Types.ObjectId,
+    _id: Schema.Types.ObjectId,
     username: {
         type: String,
         required: "Username is a required field",
