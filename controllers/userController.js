@@ -1,18 +1,11 @@
+const userAuth = require("./functions/UserAuth.js");
 const db = require("../models");
 
-exports.create = (req, res) => {
-    const body = req.body;
-    if (!body) {
-        return res.status(400).json({
-            success: false,
-            error: 'You must provide all the required information for the User!'
-        })
-    }
+exports.create = ({body}, res) => {
 
+    userAuth.verifyBody(body);
     const User = new db.User(body);
-    if (!User) {
-        return res.status(400).json({ success: false, error: err })
-    }
+    userAuth.verifyUser(User);
 
     User
         .save()
@@ -31,17 +24,12 @@ exports.create = (req, res) => {
         })
 }
 
-exports.update = async (req,res) => {
-    const body = req.body
-
-    if (!body) {
-        return res.status(400).json({
-            success: false,
-            error: 'You must provide a body to update',
-        })
-    }
-
-    db.User.findOne({ _id: req.params.id }, (err, user) => {
+exports.update = async ({body},res) => {
+    userAuth.verifyBody(body);
+    const User = new db.User(body);
+    userAuth.verifyUser(User);
+    
+    db.User.findOne({ _id: User.id }, (err, user) => {
         if (err) {
             return res.status(404).json({
                 err,
@@ -68,7 +56,7 @@ exports.update = async (req,res) => {
 }
 
 exports.delete = async (req,res) => {
-    await User.findOneAndDelete({ _id: req.params.id }, (err, user) => {
+    await db.User.findOneAndDelete({ _id: req.params.id }, (err, user) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
@@ -107,6 +95,26 @@ exports.getAll = async (req,res) => {
             return res
                 .status(404)
                 .json({ success: false, error: `Users not found` })
+        }
+        return res.status(200).json({ success: true, data: user })
+    }).catch(err => console.log(err))
+}
+
+exports.verifyUser = async ({body},res) => {
+
+    userAuth.verifyBody(body);
+    const User = new db.User(body);
+    userAuth.verifyUser(User);
+
+    await db.User.findOne({ username: User.username, password: User.password }, (err, user) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        if (!user) {
+            return res
+                .status(404)
+                .json({ success: false, error: `User not found` })
         }
         return res.status(200).json({ success: true, data: user })
     }).catch(err => console.log(err))
