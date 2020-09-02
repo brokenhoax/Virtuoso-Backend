@@ -25,8 +25,7 @@ UserSeed = users.map(user => ({
   username: user,
   password: "password",
   role: role()
-})
-);
+}));
 
 const webinars = ["Data and you!", "Best Financing Practices", "Putting the We in Web dev!", "How to get a raise in 10 days!", "What to do when you become the boss", "Uh Oh, my database has been wiped!"]
 let WebinarSeed = [];
@@ -57,10 +56,9 @@ WebinarSeed = webinars.map(webinar => ({
     marketing: false,
     engineering: false
   }
-})
-);
+}));
 
-
+<<<<<<< HEAD
 const UserSeeder = async () => {
   
   for (userDoc of UserSeed) {
@@ -115,3 +113,24 @@ Webinar.deleteMany({}).then(() => WebinarSeeder());
 //     console.error(err);
 //     process.exit(1);
 //   });
+=======
+db.User.deleteMany({})
+  .then(() => {
+    return db.Webinar.deleteMany({})
+  })
+  .then(() => {
+    return db.User.insertMany(UserSeed);
+  })
+  .then(() => {
+    return db.Webinar.insertMany(WebinarSeed);
+  })
+  .then(
+    data => {
+      console.log(`${data.length} records inserted!`);
+      process.exit(0);
+    })
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+>>>>>>> master

@@ -8,9 +8,16 @@ const WebinarSchema = new Schema({
         required: true
     },
     description: {type: String, maxlength: 500},
-    date: Date,
+    date: {
+        timezone: String,
+        day: Number,
+        month: Number,
+        year: Number,
+        startTime: Number,
+        endTime: Number,
+        duration: Number,
+    },
     hosts: String,
-    duration: String,
     mainTopic: String,
     skillLevel: {type: String, required: true, enum: ["Beginner", "Intermediate", "Advanced"]},
     quiz: {
