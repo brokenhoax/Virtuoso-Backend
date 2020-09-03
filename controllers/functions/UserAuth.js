@@ -1,8 +1,10 @@
+const { db } = require("../../models/userModel")
+
 exports.verifyBody = (body) => {
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide all the required information for the User!'
+            error: 'You must provide all the required information for the form!'
         })
     }
 }
@@ -13,11 +15,12 @@ exports.verifyUser = (user) => {
     }
 }
 
-// exports.existingUsername = async () => {
+exports.existingUsername = async (username) => {
+    const results = await db.User.findOne({ username: username });
+    return (results.length > 0) ? true : false;
+}
 
-// }
-
-// exports.existingEmail = async () => {
-//     const results = await users.getUserByEmail(this._item.email);
-//     return (results.length > 0) ? true : false;
-// }
+exports.existingEmail = async (email) => {
+    const results = await db.User.findOne({ email: email });
+    return (results.length > 0) ? true : false;
+}

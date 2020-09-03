@@ -48,7 +48,14 @@ exports.update = async (req,res) => {
                 message: 'Webinar not found!',
             })
         }
-    // Update Code -- redefine variables
+        webinar.title = body.title
+        webinar.description = body.description
+        webinar.date = body.date
+        webinar.hosts = body.hosts
+        webinar.mainTopic = body.mainTopic
+        webinar.skillLevel = body.skillLevel
+        webinar.quiz = body.quiz
+        webinar.tags = body.tags
         webinar
             .save()
             .then(() => {

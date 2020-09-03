@@ -36,7 +36,12 @@ exports.update = async ({body},res) => {
                 message: 'User not found!',
             })
         }
-    // Update Code -- redefine variables
+        user.email = body.email
+        user.password = body.password
+        user.favorite = body.favorite
+        user.registered = body.registered
+        user.completedVideo = body.completedVideo
+        user.passedQuiz = body.passedQuiz
         user
             .save()
             .then(() => {

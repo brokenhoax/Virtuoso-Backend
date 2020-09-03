@@ -22,7 +22,9 @@ const role = () => {
 }
 
 UserSeed = users.map(user => ({
-  username: user,
+  firstName: user,
+  lastName: `${user}son`,
+  email: `${user.toLowerCase()}@testmail.com`,
   password: "password",
   role: role()
 }));
