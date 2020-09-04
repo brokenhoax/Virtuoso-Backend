@@ -2,16 +2,27 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    // _Userid: Schema.Types.ObjectId,
-    username: {
+    firstname: {
         type: String,
-        required: "Username is a required field",
+        required: "First Name is a required field",
         trim: true
+    },
+    lastname: {
+        type: String,
+        required: "Last Name is a required field",
+        trim: true
+    },
+    email: {
+        type: String,
+        required: "E-mail is a required field",
+        trim: true,
+        match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
     },
     password: {
         type: String,
         required: "Password is a required field",
-        trim:true
+        trim: true,
+        validate: [({ length }) => length >= 6, "Password should be longer."]
     },
     role: {type: String, required: true, enum: ["Virtuoso", "Prodigy"]},
     favorite: [{
@@ -29,7 +40,11 @@ const UserSchema = new Schema({
     passedQuiz: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Webinar"
-    }]
+    }],
+    userCreated: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const User = mongoose.model("User", UserSchema);
