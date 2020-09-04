@@ -20,7 +20,7 @@ const WebinarSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }],
-    mainTopic: String,
+    mainTopic: {type: String, required: "Your Webinar needs a Main Topic", enum: ["Back-End", "Front-End", "Full Stack", "React", "MERN", "Deployment"]},
     skillLevel: {type: String, required: true, enum: ["Beginner", "Intermediate", "Advanced"]},
     quiz: {
         directions: String,
