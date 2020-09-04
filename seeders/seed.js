@@ -63,7 +63,7 @@ WebinarSeed = webinars.map(webinar => ({
     duration: 60,
   },
   duration: "06:30",
-  mainTopic: "Webinar",
+  mainTopic: "Full Stack",
   skillLevel: skill(),
   tags: {
     educational: true,
