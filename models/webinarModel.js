@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const WebinarSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+    // _Webinarid: Schema.Types.ObjectId,
     title: {
         type: String,
         required: true

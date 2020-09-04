@@ -9,7 +9,7 @@ mongoose.connect("mongodb://localhost/projectdb", {
   useUnifiedTopology: true
 });
 
-const users = ["Bill",  "Edward", "Pablo", "Gil", "Francesca", "Edith", "Sasha"];
+const users = ["Bill", "Edward", "Pablo", "Gil", "Francesca", "Edith", "Sasha"];
 let UserSeed = [];
 
 const role = () => {
@@ -40,12 +40,26 @@ const skill = () => {
     return "Advanced";
   }
 }
+const month = () => {
+  return (Math.floor(Math.random() * 3) + 10);
+}
+const day = () => {
+  return (Math.floor(Math.random() * 28) + 1);
+}
+
+
 
 WebinarSeed = webinars.map(webinar => ({
   title: webinar,
   description: "This is a really awesome Webinar!!!",
-  date: new Date,
-  hosts: "Bill and Ted",
+  date: {
+    day: day(),
+    month: month(),
+    year: 2020,
+    startTime: 7,
+    endTime: 8,
+    duration: 60,
+  },
   duration: "06:30",
   mainTopic: "Webinar",
   skillLevel: skill(),
@@ -59,7 +73,7 @@ WebinarSeed = webinars.map(webinar => ({
 }));
 
 const UserSeeder = async () => {
-  
+
   for (userDoc of UserSeed) {
     let newUser = new User(userDoc);
     await newUser.save();
@@ -69,22 +83,22 @@ const UserSeeder = async () => {
 }
 
 const WebinarSeeder = async () => {
-  
+
   for (webinarDoc of WebinarSeed) {
     let newWebinar = await new Webinar(webinarDoc);
     await newWebinar.save();
 
-    let creatorCase = await User.findOne({username: "Bill"});
-    await Webinar.findOneAndUpdate({title: webinarDoc.title},{created_by: creatorCase});
-  
+    let creatorCase = await User.findOne({ username: "Bill" });
+    await Webinar.findOneAndUpdate({ title: webinarDoc.title }, { created_by: creatorCase, hosts: creatorCase });
+
     for (user of UserSeed) {
       let userUp = await User.findOne({ username: user.username });
       console.log(userUp)
       userUp.registered.push(newWebinar);
       userUp.save();
-      
+
     }
-    
+
   }
 
 }
