@@ -16,7 +16,10 @@ const WebinarSchema = new Schema({
         endTime: Number,
         duration: Number,
     },
-    hosts: String,
+    hosts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }],
     mainTopic: String,
     skillLevel: {type: String, required: true, enum: ["Beginner", "Intermediate", "Advanced"]},
     quiz: {
@@ -38,8 +41,8 @@ const WebinarSchema = new Schema({
         marketing: Boolean,
         engineering: Boolean
     },
-    creator: {
-        type: Schema.Types.ObjectId,
+    created_by: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
 });
