@@ -1,18 +1,17 @@
 const db = require("../../models")
 
-exports.verifyBody = (body, res) => {
-    if (!body) {
-        return res.status(400).json({
-            success: false,
-            error: 'You must provide all the required information for the form!'
-        }).end()
-    }
+exports.exists = (info) => {
+    return (info) ? true : false
 }
 
-exports.verifyUser = (user, res) => {
-    if (!user) {
-        return res.status(400).json({ success: false, error: err }).end()
-    }
+exports.existingEmail = async (email) => {
+    const results = await db.User.findOne({ email: email });
+    return (results !== null) ? true : false;
+}
+
+exports.existingWebinar = async (title) => {
+    const results = await db.Webinar.findOne({ title: title });
+    return (results !== null) ? true : false;
 }
 
 // exports.initialize = (body, res) => {
@@ -22,13 +21,9 @@ exports.verifyUser = (user, res) => {
 //     return User;
 // }
 
-// Not actually using Usernames right now, but in case, keep it
+// Not actually using Usernames right now, but in case we want to, let's keep it
+
 // exports.existingUsername = async (username) => {
 //     const results = await db.User.findOne({ username: username });
 //     return (results !== null) ? true : false;
 // }
-
-exports.existingEmail = async (email) => {
-    const results = await db.User.findOne({ email: email });
-    return (results !== null) ? true : false;
-}

@@ -22,7 +22,7 @@ const UserSchema = new Schema({
         type: String,
         required: "Password is a required field",
         trim: true,
-        validate: [({ length }) => length >= 6, "Password should be longer."]
+        validate: [({ length }) => length >= 8, "Password should be longer."]
     },
     role: {type: String, required: true, enum: ["Virtuoso", "Prodigy"]},
     favorite: [{

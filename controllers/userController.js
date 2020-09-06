@@ -2,10 +2,16 @@ const userAuth = require("./functions/UserAuth.js");
 const db = require("../models");
 
 exports.create = async ({body}, res) => {
-
-    userAuth.verifyBody(body);
+    if (!userAuth.exists(body)) {
+        return res.status(400).json({ success: false, error: "No body or null body received." }).end()
+    }
     const User = new db.User(body);
-    userAuth.verifyUser(User);
+    if (!userAuth.exists(User)) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide all the required information for the form!'
+        }).end()
+    }
     if (await userAuth.existingEmail(User.email)) {
         return res.status(409).json({ success: false, error: "Email already exists" }).end();
     } else {
@@ -27,10 +33,18 @@ exports.create = async ({body}, res) => {
     }
 }
 
-exports.update = async ({body},res) => {
-    userAuth.verifyBody(body);
+exports.update = async (req,res) => {
+    const {body} = req;
+    if (!userAuth.exists(body)) {
+        return res.status(400).json({ success: false, error: "No body or null body received." }).end()
+    }
     const User = new db.User(body);
-    userAuth.verifyUser(User);
+    if (!userAuth.exists(User)) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide all the required information for the form!'
+        }).end()
+    }
     
     db.User.findOne({ _id: User.id }, (err, user) => {
         if (err) {
