@@ -61,6 +61,7 @@ exports.update = async (req,res) => {
         webinar.skillLevel = body.skillLevel
         webinar.quiz = body.quiz
         webinar.tags = body.tags
+        webinar.created_by = body.created_by
         webinar
             .save()
             .then(() => {
