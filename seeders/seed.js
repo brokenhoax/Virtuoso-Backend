@@ -97,6 +97,7 @@ const WebinarSeeder = async () => {
       let userUp = await User.findOne({ firstname: user.firstname });
       console.log(userUp)
       userUp.registered.push(newWebinar);
+      userUp.favorite.push(newWebinar);
       userUp.save();
 
     }

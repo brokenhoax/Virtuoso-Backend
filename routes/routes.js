@@ -15,5 +15,9 @@ router.delete('/user/delete/:id', UserControl.delete);
 router.get('/user/get/id/:id', UserControl.getId);
 router.get('/user/get/verify', UserControl.verifyUser);
 router.get('/user/get/all', UserControl.getAll);
+router.get('/user/:id/webinar/favorite', UserControl.getUserFavorite)
+router.get('/user/:id/webinar/registered', UserControl.getUserRegistered)
+router.get('/user/:id/webinar/completed', UserControl.getUserCompleted)
+router.get('/user/:id/webinar/passed', UserControl.getUserPassed)
 
 module.exports = router;
