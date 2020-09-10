@@ -1,9 +1,10 @@
+require('dotenv').config();
 const mongoose = require("mongoose");
 // const User = require("../models/userModel.js");
 // const Webinar = require("../models/webinarModel.js");
 const { User, Webinar } = require("../models");
 
-mongoose.connect("mongodb://localhost/projectdb", {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true
