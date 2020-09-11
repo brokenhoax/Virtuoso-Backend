@@ -11,6 +11,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 const users = ["Bill", "Edward", "Pablo", "Gil", "Francesca", "Edith", "Sasha"];
+
 let UserSeed = [];
 
 const role = () => {
@@ -31,6 +32,7 @@ UserSeed = users.map(user => ({
 }));
 
 const webinars = ["Data and you!", "Best Financing Practices", "Putting the We in Web dev!", "How to get a raise in 10 days!", "What to do when you become the boss", "Uh Oh, my database has been wiped!"]
+const topics = ["JavaScript", "Python", "Angular", "React", "Node JS", "MongoDB"];
 let WebinarSeed = [];
 
 const skill = () => {
@@ -49,8 +51,9 @@ const month = () => {
 const day = () => {
   return (Math.floor(Math.random() * 28) + 1);
 }
-
-
+const ranMainTopic = () => {
+  return topics[Math.floor(Math.random()*topics.length)]
+}
 
 WebinarSeed = webinars.map(webinar => ({
   title: webinar,
@@ -64,7 +67,7 @@ WebinarSeed = webinars.map(webinar => ({
     duration: 60,
   },
   duration: "06:30",
-  mainTopic: "Full Stack",
+  mainTopic: ranMainTopic(),
   skillLevel: skill(),
   tags: {
     educational: true,
