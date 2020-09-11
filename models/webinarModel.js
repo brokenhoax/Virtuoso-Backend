@@ -20,7 +20,7 @@ const WebinarSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }],
-    mainTopic: {type: String, required: "Your Webinar needs a Main Topic", enum: ["Back-End", "Front-End", "Full Stack", "React", "MERN", "Deployment"]},
+    mainTopic: {type: String, required: "Your Webinar needs a Main Topic", enum: ["JavaScript", "Python", "Angular", "React", "Node JS", "MongoDB"]},
     skillLevel: {type: String, required: true, enum: ["Beginner", "Intermediate", "Advanced"]},
     video: {
         url: String,
