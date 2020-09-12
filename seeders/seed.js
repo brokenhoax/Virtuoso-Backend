@@ -67,8 +67,6 @@ WebinarSeed = webinars.map(webinar => ({
     duration: 60,
     event: {
       title: webinar,
-      color: 'blue',
-      textColor: 'white'
     }
   },
   mainTopic: ranMainTopic(),
