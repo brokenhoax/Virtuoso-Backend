@@ -53,15 +53,42 @@ exports.update = async (req,res) => {
                 message: 'Webinar not found!',
             }).end()
         }
-        webinar.title = body.title
-        webinar.description = body.description
-        webinar.date = body.date
-        webinar.hosts = body.hosts
-        webinar.mainTopic = body.mainTopic
-        webinar.skillLevel = body.skillLevel
-        webinar.quiz = body.quiz
-        webinar.tags = body.tags
-        webinar.created_by = body.created_by
+        if (body.title !== undefined) {
+            webinar.title = body.title;
+        }
+        if (body.description !== undefined) {
+            webinar.description = body.description;
+        }
+        if (body.date !== undefined) {
+            webinar.date = body.date;
+        }
+        if (body.hosts !== undefined) {
+            webinar.hosts = body.hosts;
+        }
+        if (body.mainTopic !== undefined) {
+            webinar.mainTopic = body.mainTopic;
+        }
+        if (body.skillLevel !== undefined) {
+            webinar.skillLevel = body.skillLevel;
+        }
+        if (body.quiz !== undefined) {
+            webinar.quiz = body.quiz;
+        }
+        if (body.tags !== undefined) {
+            webinar.tags = body.tags;
+        }
+        if (body.created_by !== undefined) {
+            webinar.created_by = body.created_by;
+        }
+        // webinar.title = body.title
+        // webinar.description = body.description
+        // webinar.date = body.date
+        // webinar.hosts = body.hosts
+        // webinar.mainTopic = body.mainTopic
+        // webinar.skillLevel = body.skillLevel
+        // webinar.quiz = body.quiz
+        // webinar.tags = body.tags
+        // webinar.created_by = body.created_by
         webinar
             .save()
             .then(() => {
@@ -75,7 +102,7 @@ exports.update = async (req,res) => {
                 return res.status(404).json({
                     error,
                     message: 'Webinar not updated!',
-                })
+                }).end()
             })
     })
 }
@@ -83,13 +110,11 @@ exports.update = async (req,res) => {
 exports.delete = async (req,res) => {
     await Webinar.findOneAndDelete({ _id: req.params.id }, (err, webinar) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({ success: false, error: err }).end()
         }
 
         if (!webinar) {
-            return res
-                .status(404)
-                .json({ success: false, error: `Webinar not found` }).end()
+            return res.status(404).json({ success: false, error: `Webinar not found` }).end()
         }
 
         return res.status(200).json({ success: true, data: webinar }).end()
@@ -99,13 +124,11 @@ exports.delete = async (req,res) => {
 exports.getId = async (req,res) => {
     await db.Webinar.findOne({ _id: req.params.id }, (err, webinar) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({ success: false, error: err }).end()
         }
 
         if (!webinar) {
-            return res
-                .status(404)
-                .json({ success: false, error: `Webinar not found` }).end()
+            return res.status(404).json({ success: false, error: `Webinar not found` }).end()
         }
         return res.status(200).json({ success: true, data: webinar }).end()
     }).catch(err => console.log(err))
@@ -117,9 +140,7 @@ exports.getAll = async (req,res) => {
             return res.status(400).json({ success: false, error: err }).end()
         }
         if (!webinar.length) {
-            return res
-                .status(404)
-                .json({ success: false, error: `Webinars not found` }).end()
+            return res.status(404).json({ success: false, error: `Webinars not found` }).end()
         }
         return res.status(200).json({ success: true, data: webinar }).end()
     }).catch(err => console.log(err))

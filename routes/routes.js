@@ -3,6 +3,10 @@ const router = require("express").Router();
 const WebControl = require('../controllers/webinarController');
 const UserControl = require('../controllers/userController');
 
+router.get('/',  (req, res) => {
+    return res.status(200).json({ success: "true", message: "Welcome! To begin receiving data, please use '/webinar' or '/user' endpoints!" }).end();
+});
+
 router.post('/webinar/create', WebControl.create);
 router.patch('/webinar/update/:id', WebControl.update);
 router.delete('/webinar/delete/:id', WebControl.delete);

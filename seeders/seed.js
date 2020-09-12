@@ -55,18 +55,22 @@ const ranMainTopic = () => {
   return topics[Math.floor(Math.random()*topics.length)]
 }
 
+const dayGen = () => {
+  return `2020-${month()}-${day()}`;
+}
+
 WebinarSeed = webinars.map(webinar => ({
   title: webinar,
   description: "This is a really awesome Webinar!!!",
   date: {
-    day: day(),
-    month: month(),
-    year: 2020,
-    startTime: 7,
-    endTime: 8,
+    date: dayGen(),
     duration: 60,
+    event: {
+      title: webinar,
+      color: 'blue',
+      textColor: 'white'
+    }
   },
-  duration: "06:30",
   mainTopic: ranMainTopic(),
   skillLevel: skill(),
   tags: {
@@ -92,6 +96,8 @@ const WebinarSeeder = async () => {
 
   for (webinarDoc of WebinarSeed) {
     let newWebinar = await new Webinar(webinarDoc);
+      newWebinar.date.event.start = `${newWebinar.date.date}T09:00:00`;
+      newWebinar.date.event.end = `${newWebinar.date.date}T10:00:00`;
     await newWebinar.save();
 
     let creatorCase = await User.findOne({ firstname: "Bill" });
