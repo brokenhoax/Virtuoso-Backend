@@ -53,12 +53,24 @@ exports.update = async (req, res) => {
                 message: 'User not found!',
             }).end()
         }
-        user.email = body.email
-        user.password = body.password
-        user.favorite = body.favorite
-        user.registered = body.registered
-        user.completedVideo = body.completedVideo
-        user.passedQuiz = body.passedQuiz
+        if (body.email !== undefined) {
+            user.email = body.email;
+        }
+        if (body.password !== undefined) {
+            user.password = body.password;
+        }
+        if (body.favorite !== undefined) {
+            user.favorite = body.favorite;
+        }
+        if (body.registered !== undefined) {
+            user.registered = body.registered;
+        }
+        if (body.completedVideo !== undefined) {
+            user.completedVideo = body.completedVideo;
+        }
+        if (body.passedQuiz !== undefined) {
+            user.passedQuiz = body.passedQuiz;
+        }
         user
             .save()
             .then(() => {
@@ -111,7 +123,7 @@ exports.getId = async (req, res) => {
 exports.getAll = async (req, res) => {
     await db.User.find({}, (err, user) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({ success: false, error: err }).end()
         }
         if (!user.length) {
             return res
@@ -135,13 +147,11 @@ exports.verifyUser = async ({body},res) => {
     }
     await db.User.findOne({ email: User.email, password: User.password }, (err, user) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(400).json({ success: false, error: err }).end()
         }
 
         if (!user) {
-            return res
-                .status(404)
-                .json({ success: false, error: `User not found` }).end()
+            return res.status(404).json({ success: false, error: `User not found` }).end()
         }
         return res.status(200).json({ success: true, data: user }).end()
     }).catch(err => console.log(err))
@@ -152,7 +162,7 @@ exports.getUserFavorite = async (req, res) => {
         .populate("favorite")
         .then((userFavoriteWebinar, err) => {
             if (err) {
-                return res.status(400).json({ success: false, error: err })
+                return res.status(400).json({ success: false, error: err }).end()
             }
             if (!userFavoriteWebinar) {
                 return res.status(404)
@@ -167,11 +177,10 @@ exports.getUserRegistered = async (req, res) => {
         .populate("registered")
         .then((userRegisteredWebinar, err) => {
             if (err) {
-                return res.status(400).json({ success: false, error: err })
+                return res.status(400).json({ success: false, error: err }).end()
             }
             if (!userRegisteredWebinar) {
-                return res.status(404)
-                    .json({ success: false, error: `User's registered webinars not found` }).end()
+                return res.status(404).json({ success: false, error: `User's registered webinars not found` }).end()
             }
             return res.status(200).json({ success: true, data: userRegisteredWebinar }).end()
         }).catch(err => console.log(err))
@@ -182,7 +191,7 @@ exports.getUserCompleted = async (req, res) => {
         .populate("completedVideo")
         .then((userCompletedWebinar, err) => {
             if (err) {
-                return res.status(400).json({ success: false, error: err })
+                return res.status(400).json({ success: false, error: err }).end()
             }
             if (!userCompletedWebinar) {
                 return res.status(404)
@@ -197,7 +206,7 @@ exports.getUserPassed = async (req, res) => {
         .populate("passedQuiz")
         .then((userPassedWebinar, err) => {
             if (err) {
-                return res.status(400).json({ success: false, error: err })
+                return res.status(400).json({ success: false, error: err }).end()
             }
             if (!userPassedWebinar) {
                 return res.status(404)

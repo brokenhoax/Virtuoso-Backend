@@ -9,12 +9,15 @@ const WebinarSchema = new Schema({
     description: {type: String, maxlength: 500},
     date: {
         timezone: String,
-        day: Number,
-        month: Number,
-        year: Number,
-        startTime: Number,
-        endTime: Number,
+        date: String,
         duration: Number,
+        event: {
+            title: String,
+            start: String,
+            end: String,
+            color: String,
+            textColor: String
+        }
     },
     hosts: [{
         type: mongoose.Schema.Types.ObjectId,
