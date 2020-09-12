@@ -9,18 +9,21 @@ const WebinarSchema = new Schema({
     description: {type: String, maxlength: 500},
     date: {
         timezone: String,
-        day: Number,
-        month: Number,
-        year: Number,
-        startTime: Number,
-        endTime: Number,
+        date: String,
         duration: Number,
+        event: {
+            title: String,
+            start: String,
+            end: String,
+            color: String,
+            textColor: String
+        }
     },
     hosts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }],
-    mainTopic: {type: String, required: "Your Webinar needs a Main Topic", enum: ["Back-End", "Front-End", "Full Stack", "React", "MERN", "Deployment"]},
+    mainTopic: {type: String, required: "Your Webinar needs a Main Topic", enum: ["JavaScript", "Python", "Angular", "React", "Node JS", "MongoDB"]},
     skillLevel: {type: String, required: true, enum: ["Beginner", "Intermediate", "Advanced"]},
     video: {
         url: String,

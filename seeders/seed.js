@@ -11,6 +11,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 const users = ["Bill", "Edward", "Pablo", "Gil", "Francesca", "Edith", "Sasha"];
+
 let UserSeed = [];
 
 const role = () => {
@@ -31,6 +32,7 @@ UserSeed = users.map(user => ({
 }));
 
 const webinars = ["Data and you!", "Best Financing Practices", "Putting the We in Web dev!", "How to get a raise in 10 days!", "What to do when you become the boss", "Uh Oh, my database has been wiped!"]
+const topics = ["JavaScript", "Python", "Angular", "React", "Node JS", "MongoDB"];
 let WebinarSeed = [];
 
 const skill = () => {
@@ -49,22 +51,27 @@ const month = () => {
 const day = () => {
   return (Math.floor(Math.random() * 28) + 1);
 }
+const ranMainTopic = () => {
+  return topics[Math.floor(Math.random()*topics.length)]
+}
 
-
+const dayGen = () => {
+  return `2020-${month()}-${day()}`;
+}
 
 WebinarSeed = webinars.map(webinar => ({
   title: webinar,
   description: "This is a really awesome Webinar!!!",
   date: {
-    day: day(),
-    month: month(),
-    year: 2020,
-    startTime: 7,
-    endTime: 8,
+    date: dayGen(),
     duration: 60,
+    event: {
+      title: webinar,
+      color: 'blue',
+      textColor: 'white'
+    }
   },
-  duration: "06:30",
-  mainTopic: "Full Stack",
+  mainTopic: ranMainTopic(),
   skillLevel: skill(),
   tags: {
     educational: true,
@@ -89,6 +96,8 @@ const WebinarSeeder = async () => {
 
   for (webinarDoc of WebinarSeed) {
     let newWebinar = await new Webinar(webinarDoc);
+      newWebinar.date.event.start = `${newWebinar.date.date}T09:00:00`;
+      newWebinar.date.event.end = `${newWebinar.date.date}T10:00:00`;
     await newWebinar.save();
 
     let creatorCase = await User.findOne({ firstname: "Bill" });
