@@ -153,7 +153,7 @@ exports.getCreatedBy = async (req, res) => {
             if (err) {
                 return res.status(400).json({ success: false, error: err }).end()
             }
-            if (!userPassedWebinar) {
+            if (!webinarCreatedBy) {
                 return res.status(404)
                     .json({ success: false, error: `Webinar's Creator not found!` }).end()
             }
