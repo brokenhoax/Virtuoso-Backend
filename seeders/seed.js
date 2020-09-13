@@ -75,7 +75,7 @@ WebinarSeed = webinars.map(webinar => ({
   video: {
     url: "https://www.youtube.com/watch?v=yPYZpwSpKmA",
     title: "Get Educated!",
-    description: "A really interesting video!"
+    description: "A really interesting video!" 
   },
   tags: {
     educational: true,
@@ -123,9 +123,9 @@ const WebinarSeeder = async () => {
 // User.deleteMany({}).then(() => UserSeeder());
 // Webinar.deleteMany({}).then(() => WebinarSeeder());
 
-// WebinarSeeder();
-// WebinarSeeder();
-// WebinarSeeder();
+WebinarSeeder();
+WebinarSeeder();
+WebinarSeeder();
 
 // User.deleteMany({})
 //   .then(() => {
