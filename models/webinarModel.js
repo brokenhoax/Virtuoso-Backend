@@ -14,9 +14,7 @@ const WebinarSchema = new Schema({
         event: {
             title: String,
             start: String,
-            end: String,
-            color: String,
-            textColor: String
+            end: String
         }
     },
     hosts: [{
