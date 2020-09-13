@@ -145,3 +145,18 @@ exports.getAll = async (req,res) => {
         return res.status(200).json({ success: true, data: webinar }).end()
     }).catch(err => console.log(err))
 }
+
+exports.getCreatedBy = async (req, res) => {
+    await db.Webinar.findOne({ _id: req.params.id })
+        .populate("created_by")
+        .then((webinarCreatedBy, err) => {
+            if (err) {
+                return res.status(400).json({ success: false, error: err }).end()
+            }
+            if (!webinarCreatedBy) {
+                return res.status(404)
+                    .json({ success: false, error: `Webinar's Creator not found!` }).end()
+            }
+            return res.status(200).json({ success: true, data: webinarCreatedBy }).end()
+        }).catch(err => console.log(err))
+}
