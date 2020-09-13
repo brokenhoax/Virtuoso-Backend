@@ -51,8 +51,9 @@ const month = () => {
 const day = () => {
   return (Math.floor(Math.random() * 28) + 1);
 }
-const ranMainTopic = () => {
-  return topics[Math.floor(Math.random()*topics.length)]
+
+const ranArray = (array) => {
+  return array[Math.floor(Math.random()*array.length)]
 }
 
 const dayGen = () => {
@@ -66,11 +67,16 @@ WebinarSeed = webinars.map(webinar => ({
     date: dayGen(),
     duration: 60,
     event: {
-      title: webinar,
+      title: webinar
     }
   },
-  mainTopic: ranMainTopic(),
+  mainTopic: ranArray(topics),
   skillLevel: skill(),
+  video: {
+    url: "https://www.youtube.com/watch?v=yPYZpwSpKmA",
+    title: "Get Educated!",
+    description: "A really interesting video!"
+  },
   tags: {
     educational: true,
     networking: true,
@@ -98,7 +104,7 @@ const WebinarSeeder = async () => {
       newWebinar.date.event.end = `${newWebinar.date.date}T10:00:00`;
     await newWebinar.save();
 
-    let creatorCase = await User.findOne({ firstname: "Bill" });
+    let creatorCase = await User.findOne({ firstname: ranArray(users) });
     await Webinar.findOneAndUpdate({ title: webinarDoc.title }, { created_by: creatorCase, hosts: creatorCase });
 
     for (user of UserSeed) {
@@ -114,9 +120,12 @@ const WebinarSeeder = async () => {
 
 }
 
-User.deleteMany({}).then(() => UserSeeder());
-Webinar.deleteMany({}).then(() => WebinarSeeder());
+// User.deleteMany({}).then(() => UserSeeder());
+// Webinar.deleteMany({}).then(() => WebinarSeeder());
 
+// WebinarSeeder();
+// WebinarSeeder();
+// WebinarSeeder();
 
 // User.deleteMany({})
 //   .then(() => {
