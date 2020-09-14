@@ -80,15 +80,6 @@ exports.update = async (req,res) => {
         if (body.created_by !== undefined) {
             webinar.created_by = body.created_by;
         }
-        // webinar.title = body.title
-        // webinar.description = body.description
-        // webinar.date = body.date
-        // webinar.hosts = body.hosts
-        // webinar.mainTopic = body.mainTopic
-        // webinar.skillLevel = body.skillLevel
-        // webinar.quiz = body.quiz
-        // webinar.tags = body.tags
-        // webinar.created_by = body.created_by
         webinar
             .save()
             .then(() => {
@@ -117,7 +108,7 @@ exports.delete = async (req,res) => {
             return res.status(404).json({ success: false, error: `Webinar not found` }).end()
         }
 
-        return res.status(200).json({ success: true, data: webinar }).end()
+        return res.status(200).json({ success: true, message: "This Webinar was successfully deleted!", data: webinar }).end()
     }).catch(err => console.log(err))
 }
 
