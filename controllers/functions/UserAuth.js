@@ -14,13 +14,6 @@ exports.existingWebinar = async (title) => {
     return (results !== null) ? true : false;
 }
 
-// exports.initialize = (body, res) => {
-//     this.verifyBody(body, res);
-//     const User = new db.User(body);
-//     this.verifyUser(User, res);
-//     return User;
-// }
-
 // Not actually using Usernames right now, but in case we want to, let's keep it
 
 // exports.existingUsername = async (username) => {
