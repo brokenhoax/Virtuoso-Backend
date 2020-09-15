@@ -99,7 +99,7 @@ exports.update = async (req,res) => {
 }
 
 exports.delete = async (req,res) => {
-    await Webinar.findOneAndDelete({ _id: req.params.id }, (err, webinar) => {
+    await db.Webinar.findOneAndDelete({ _id: req.params.id }, (err, webinar) => {
         if (err) {
             return res.status(400).json({ success: false, error: err }).end()
         }
