@@ -46,7 +46,7 @@ exports.update = async (req, res) => {
         }).end()
     }
 
-    db.User.findOne({ _id: User.id }, (err, user) => {
+    db.User.findOne({ _id: req.params.id }, (err, user) => {
         if (err) {
             return res.status(404).json({
                 err,
@@ -101,7 +101,7 @@ exports.delete = async (req, res) => {
                 .json({ success: false, error: `User not found` }).end()
         }
 
-        return res.status(200).json({ success: true, data: user }).end()
+        return res.status(200).json({ success: true, message: "This User was successfully deleted!", data: user }).end()
     }).catch(err => console.log(err))
 }
 

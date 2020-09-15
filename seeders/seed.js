@@ -31,7 +31,7 @@ UserSeed = users.map(user => ({
   role: role()
 }));
 
-const webinars = ["Data and you!", "Best Financing Practices", "Putting the We in Web dev!", "How to get a raise in 10 days!", "What to do when you become the boss", "Uh Oh, my database has been wiped!"]
+const webinars = ["Data and you!", "Best Financing Practices", "Putting the We in Web dev!", "How to get a raise in 10 days!", "What to do when you become the boss", "Uh Oh, my database has been wiped!", "Back to the Basics! How good practices reflect quality.", "Pushing the Limits: An exploration into cutting-edge libraries.", "FAANG Practices that could make you a better Web Developer"]
 const topics = ["JavaScript", "Python", "Angular", "React", "Node JS", "MongoDB"];
 let WebinarSeed = [];
 
@@ -115,17 +115,11 @@ const WebinarSeeder = async () => {
       userUp.save();
 
     }
-
   }
-
 }
 
-// User.deleteMany({}).then(() => UserSeeder());
-// Webinar.deleteMany({}).then(() => WebinarSeeder());
-
-WebinarSeeder();
-WebinarSeeder();
-WebinarSeeder();
+User.deleteMany({}).then(() => UserSeeder());
+Webinar.deleteMany({}).then(() => WebinarSeeder());
 
 // User.deleteMany({})
 //   .then(() => {
