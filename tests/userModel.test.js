@@ -1,24 +1,36 @@
-// const db = require("../models");
+const mockingoose = require('mockingoose').default;
+const user = require("../models/userModel");
 
-// describe('User Schema', () => {
-//     describe('Role Requirement', () => {
-//         it("Should return 'true' if the New Class has any value", () => {
-//             const test = new db.User({
-//                 firstname: 'test-first',
-//                 lastname: 'test-last',
-//                 email: 'test@test.test',
-//                 password: 'test_pass',
-//                 role: 'bad-test'
-//             });
-//             expect(test).toEqual(true);
-//         });
-//     });
-// });
 
-describe("travis", () =>{
-    describe("travis", () => {
-        it("should pass travis", () => {
-            expect({status: true}).toEqual({status: true});
+describe("test mongoose UserModel", () => {
+
+    it("should return the document with findById", () => {
+        const _doc = {
+            _id: '5f5eab5cb441a11880065890',
+            firstname: 'bill',
+            lastname: 'nye',
+            email: 'nye@email.com',
+            password: 'billybob123'
+        };
+        mockingoose(user).toReturn(_doc, 'findOne');
+        return user.findById({ _id: '5f5eab5cb441a11880065890' }).then(doc => {
+            expect(JSON.parse(JSON.stringify(doc))).toMatchObject(_doc);
         });
+    });
+
+    it("should return document with update", () => {
+        const _doc = {
+            _id: '5f5eab5cb441a11880065890',
+            firstname: 'bill',
+            lastname: 'nye',
+            email: 'nye@email.com',
+            password: 'billybob123'
+        };
+        mockingoose(user).toReturn(_doc, 'update');
+        return user.update({ firstname: "Susan" })
+            .where({ _id: '5f5eab5cb441a11880065890' })
+            .then(doc => {
+                expect(JSON.parse(JSON.stringify(doc))).toMatchObject(_doc);
+            });
     });
 });
