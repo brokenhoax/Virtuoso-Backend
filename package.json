@@ -33,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/OvertReactors/Virtuoso-Backend/issues"
   },
-  "homepage": "https://github.com/OvertReactors/Virtuoso-Backend#readme"
+  "homepage": "https://github.com/OvertReactors/Virtuoso-Backend#readme",
+  "devDependencies": {
+    "mockingoose": "^2.13.2"
+  }
 }
