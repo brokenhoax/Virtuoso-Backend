@@ -18,7 +18,7 @@ router.post('/user/create', UserControl.create);
 router.patch('/user/update/:id', UserControl.update);
 router.delete('/user/delete/:id', UserControl.delete);
 router.get('/user/get/id/:id', UserControl.getId);
-router.get('/user/get/verify', UserControl.verifyUser);
+router.get('/user/get/verify/:email/:password', UserControl.verifyUser);
 router.get('/user/get/all', UserControl.getAll);
 
 router.get('/user/:id/webinar/favorite', UserControl.getUserFavorite)
