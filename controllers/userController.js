@@ -134,18 +134,19 @@ exports.getAll = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-exports.verifyUser = async ({body},res) => {
-    if (!userAuth.exists(body)) {
-        return res.status(400).json({ success: false, error: "No body or null body received." }).end()
-    }
-    const User = new db.User(body);
-    if (!userAuth.exists(User)) {
-        return res.status(400).json({
-            success: false,
-            error: 'You must provide all the required information for the form!'
-        }).end()
-    }
-    await db.User.findOne({ email: User.email, password: User.password }, (err, user) => {
+exports.verifyUser = async (req,res) => {
+    // if (!userAuth.exists(body)) {
+    //     return res.status(400).json({ success: false, error: "No body or null body received." }).end()
+    // }
+    // const User = new db.User(body);
+    // if (!userAuth.exists(User)) {
+    //     return res.status(400).json({
+    //         success: false,
+    //         error: 'You must provide all the required information for the form!'
+    //     }).end()
+    // }
+    // Try later with req.data instead of params or body
+    await db.User.findOne({ email: req.params.email, password: req.params.password }, (err, user) => {
         if (err) {
             return res.status(400).json({ success: false, error: err }).end()
         }
