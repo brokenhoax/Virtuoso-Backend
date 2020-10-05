@@ -1,18 +1,18 @@
-const db = require("../../models")
+const db = require("../../models");
 
 exports.exists = (info) => {
-    return (info) ? true : false
-}
+  return info ? true : false;
+};
 
 exports.existingEmail = async (email) => {
-    const results = await db.User.findOne({ email: email });
-    return (results !== null) ? true : false;
-}
+  const results = await db.User.findOne({ email: email });
+  return results !== null ? true : false;
+};
 
 exports.existingWebinar = async (title) => {
-    const results = await db.Webinar.findOne({ title: title });
-    return (results !== null) ? true : false;
-}
+  const results = await db.Webinar.findOne({ title: title });
+  return results !== null ? true : false;
+};
 
 // Not actually using Usernames right now, but in case we want to, let's keep it
 
